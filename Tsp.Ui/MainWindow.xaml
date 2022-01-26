@@ -1,0 +1,53 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Tsp.Ui.MainWindow"
+        Title="Traveling Salesman Problem (TSP) - Simulated Annealing Solution" Height="500" Width="800" SizeChanged="MainWindow_OnSizeChanged">
+ <Grid Background="White">
+  <Grid.ColumnDefinitions>
+   <ColumnDefinition Width="150"/>
+   <ColumnDefinition Width="*"/>
+   <ColumnDefinition Width="150"/>
+  </Grid.ColumnDefinitions>
+  <DockPanel Grid.Column="0" LastChildFill="False" Dock="Left">
+   <Label Content="Algorithm settings:" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="14" FontWeight="DemiBold"/>
+   <Label Content="Temperature:" DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+   <TextBox x:Name="TemperatureTextBox" DockPanel.Dock="Top" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5,0,5,0"/>
+    <Label Content="Cooling rate:" DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+   <TextBox x:Name="CoolingRateTextBox" DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5,0,5,0"/>
+    <Label Content="Absolute temperature:" DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+   <TextBox x:Name="AbsoluteTemperatureTextBox" DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5,0,5,0"/>
+    <Label Content="Input Data Type:" DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+   <RadioButton Name="InputDataTypeMapRadioButton" GroupName="InputDataType" Content="Map and Points" DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Top" IsChecked="True" Click="InputDataTypeMapRadioButton_OnChecked"/>
+   <RadioButton Name="InputDataTypeAdjacencyMatrixRadioButton" GroupName="InputDataType" Content="Adjacency Matrix" DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Top" Click="InputDataTypeAdjacencyMatrixRadioButton_OnChecked" />
+   <Border DockPanel.Dock="Top" BorderThickness="0,1,0,0" BorderBrush="Black" Margin="5,10,5,5"/>
+   <DockPanel Name="AdjacencyMatrixPanel" Visibility="Collapsed" LastChildFill="False" Dock="Top" VerticalAlignment="Top">
+    <Label Content="Adjacency matrix size: " DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+    <TextBox DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Top" x:Name ="AdjacencyMatrixSizeTextBox" Margin="5,0,5,10"/>
+    <Button x:Name="CreateAdjacencyMatrixButton" Content="Create Adjacency Matrix"  DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5,0,5,5" Click="CreateAdjacencyMatrixButton_OnClick"/>
+    <Border DockPanel.Dock="Top" BorderThickness="0,1,0,0" BorderBrush="Black" Margin="5,5,5,10"/>
+    </DockPanel>
+   <Button Content="Run algorithm" x:Name="RunAlgorithmButton" Margin="5,5,5,5" Click="RunAlgorithmButton_OnClick" DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+   <Button Content="Clear Input" x:Name="ClearInputButton" Margin="5,0,5,5" Click="ClearInputButton_OnClick" DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+  </DockPanel>
+  <Grid Name="MapAndPointsGrid" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Visibility="Visible">
+   <Grid.RowDefinitions>
+    <RowDefinition Height="2*"/>
+    <RowDefinition Height="*"/>
+   </Grid.RowDefinitions>
+   <Canvas Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="Canvas" Background="Beige"  MouseLeftButtonDown="Canvas_OnMouseLeftButtonDown"/>
+   <DataGrid Grid.Row="1" x:Name="MapPointsDataGrid" DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ColumnWidth="*">
+  <DataGrid.Columns>
+   <DataGridTextColumn Header="Point" Binding="{Binding Number}" IsReadOnly="True"/>
+   <DataGridTextColumn Header="X" Binding="{Binding X}" IsReadOnly="True"/>
+   <DataGridTextColumn Header="Y" Binding="{Binding Y}" IsReadOnly="True"/>
+  </DataGrid.Columns>
+ </DataGrid>
+   </Grid>
+  <DataGrid Grid.Column="1" x:Name="AdjacencyMatrixDataGrid" Visibility="Hidden" Background="Azure" LoadingRow="AdjacencyMatrixDataGrid_OnLoadingRow" ColumnWidth="*" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+   <DockPanel Grid.Column="2">
+   <Label Content="Results:" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="14" FontWeight="DemiBold"/>
+   <TextBlock Name="ResultsTextBlock" DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5,0,5,0" TextWrapping="Wrap"/>
+   </DockPanel>
+ </Grid>
+</Window>
